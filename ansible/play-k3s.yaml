@@ -1,0 +1,11 @@
+- name: Homelab k3s cluster installer/flusher
+  hosts: all
+  become: true
+  tasks:
+    - name: 'flush cluster'
+      ansible.builtin.include_tasks: playbooks/flush-cluster.yaml
+      when: flush_all | default(false) | bool
+
+    - name: 'install cluster'
+      ansible.builtin.include_tasks: playbooks/play-install-cluster.yaml
+      when: not flush_all | default(false) | bool

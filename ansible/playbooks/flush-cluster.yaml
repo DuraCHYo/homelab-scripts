@@ -1,0 +1,31 @@
+- name: Check if k3s-uninstall script exists on master
+  ansible.builtin.stat:
+    path: /usr/local/bin/k3s-uninstall.sh
+  register: uninstall_master
+
+- name: Run k3s uninstall on master
+  ansible.builtin.command: /usr/local/bin/k3s-uninstall.sh
+  when:
+    - inventory_hostname in groups['masters']
+    - uninstall_master.stat.exists
+
+- name: Check if k3s-agent-uninstall script exists on worker
+  ansible.builtin.stat:
+    path: /usr/local/bin/k3s-agent-uninstall.sh
+  register: uninstall_worker
+
+- name: Run k3s-agent uninstall on workers
+  ansible.builtin.command: /usr/local/bin/k3s-agent-uninstall.sh
+  when:
+    - inventory_hostname in groups['workers']
+    - uninstall_worker.stat.exists
+
+- name: Remove leftover directories and files
+  ansible.builtin.file:
+    path: '{{ item }}'
+    state: absent
+  loop:
+    - /var/lib/rancher/k3s
+    - /etc/rancher/k3s
+    - /tmp/k3s-install.sh
+    - /tmp/k3s
