@@ -1,0 +1,45 @@
+- name: Install and configure nginx
+  hosts: s1server
+  handlers:
+    - name: Reload nginx
+      include_tasks: ../handlers/reload-nginx.yaml
+  tasks:
+    - name: Install nginx from apt
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+    - name: Install certutils
+      ansible.builtin.apt:
+        name: libnss3-tools
+        state: present
+    - name: Download mkcert util
+      ansible.builtin.get_url:
+        url: 'https://dl.filippo.io/mkcert/latest?for=linux/amd64'
+        dest: '/usr/local/bin/mkcert'
+        mode: '0755'
+    - name: Install to CARoot
+      command: mkcert -install
+    - name: Generate certs for CA
+      command: mkcert -key-file /etc/pve/local/mkcert.key -cert-file /etc/pve/local/mkcert.pem {{ ansible_facts.hostname }} {{ ansible_facts.hostname }}.lab.local {{ ansible_facts.default_ipv4.address }} localhost 127.0.0.1 "*.{{ ansible_facts.hostname }}" "*.{{ ansible_facts.hostname }}.lab.local"
+    - name: Get CARoot dir
+      command: mkcert --CAROOT
+      register: caroot_path
+    - name: Get RootCAs for install on macbook
+      ansible.builtin.fetch:
+        src: '{{ item }}'
+        dest: '/Users/depishev/Documents/vscode/homelab-scripts/certs/{{ item | basename }}'
+        flat: true
+      loop:
+        - '{{ caroot_path.stdout }}/rootCA.pem'
+        - '{{ caroot_path.stdout }}/rootCA-key.pem'
+    - name: Config server for running nginx
+      block:
+        - name: Remove default config
+          ansible.builtin.file:
+            path: /etc/nginx/sites-enabled/default
+            state: absent
+        - name: Deploy config to server
+          ansible.builtin.template:
+            src: ../templates/nginx.conf.j2
+            dest: /etc/nginx/conf.d/proxmox.conf
+          notify: Reload nginx
