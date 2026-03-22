@@ -10,7 +10,13 @@ resources:
 patches:
   - path: overlays/argocd-cmd-params-cm.yaml
   - path: overlays/argocd-cm.yaml
-
+  - target:
+      kind: (Deployment|StatefulSet)
+      name: .*
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/imagePullPolicy
+        value: IfNotPresent
 images:
   - name: quay.io/argoproj/argocd
     newName: ghcr.io/argoproj/argo-cd/argocd
