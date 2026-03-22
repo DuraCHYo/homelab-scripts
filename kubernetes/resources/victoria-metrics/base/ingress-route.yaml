@@ -35,14 +35,14 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: vmagent
+  name: vmsingle
   namespace: monitoring
 spec:
   entryPoints:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`vms.lab.local`)
+      match: Host(`vmsingle.lab.local`)
       priority: 10
       services:
         - name: vmsingle-victoria-metrics-k8s
