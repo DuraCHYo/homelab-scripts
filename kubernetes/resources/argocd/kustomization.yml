@@ -9,6 +9,7 @@ resources:
 
 patches:
   - path: overlays/argocd-cmd-params-cm.yaml
+  - path: overlays/argocd-cm.yaml
 
 images:
   - name: quay.io/argoproj/argocd

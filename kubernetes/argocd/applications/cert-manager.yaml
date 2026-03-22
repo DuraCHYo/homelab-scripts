@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+spec:
+  destination:
+    namespace: cert-manager
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: kubernetes/resources/cert-manager
+    repoURL: https://github.com/DuraCHYo/homelab-scripts
+    targetRevision: master
+  syncPolicy:
+    syncOptions:
+      - ServerSideApply=true
+      - CreateNamespace=true
+  managedNamespaceMetadata:
+    labels:
+      cert-manager.io/inject-cert: 'true'

@@ -14,4 +14,8 @@ spec:
     targetRevision: master
   syncPolicy:
     syncOptions:
+      - ServerSideApply=true
       - CreateNamespace=true
+  managedNamespaceMetadata:
+    labels:
+      cert-manager.io/inject-cert: 'true'
