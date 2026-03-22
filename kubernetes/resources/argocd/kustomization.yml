@@ -12,12 +12,40 @@ patches:
   - path: overlays/argocd-cm.yaml
   - target:
       kind: (Deployment|StatefulSet)
-      name: .*
     patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/imagePullPolicy
+        value: IfNotPresent
+  - target:
+      name: argocd-dex-server
+      kind: Deployment
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/initContainers/0/imagePullPolicy
+        value: IfNotPresent
+      - op: replace
+        path: /spec/template/spec/containers/0/imagePullPolicy
+        value: IfNotPresent
+  - target:
+      name: argocd-repo-server
+      kind: Deployment
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/initContainers/0/imagePullPolicy
+        value: IfNotPresent
+      - op: replace
+        path: /spec/template/spec/containers/0/imagePullPolicy
+        value: IfNotPresent
+  - target:
+      name: argocd-redis-server
+      kind: Deployment
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/initContainers/0/imagePullPolicy
+        value: IfNotPresent
       - op: replace
         path: /spec/template/spec/containers/0/imagePullPolicy
         value: IfNotPresent
 images:
   - name: quay.io/argoproj/argocd
-    newName: ghcr.io/argoproj/argo-cd/argocd
-    newTag: 3.5.0-4aabf526
+    newTag: 3.3.4
