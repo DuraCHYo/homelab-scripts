@@ -1,0 +1,11 @@
+- name: Create argocd namespace
+  command: kubectl create namespace argocd
+  delegate_to: localhost
+  become: false
+  run_once: true
+
+- name: Deploy argocd with kustomize
+  shell: kustomize build ../../kubernetes/resources/argocd | kubectl apply -f - --server-side
+  delegate_to: localhost
+  become: false
+  run_once: true

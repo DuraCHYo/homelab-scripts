@@ -154,3 +154,5 @@
   file:
     path: /tmp/tls-secret.yaml
     state: absent
+
+- import_tasks: deploy-argocd.yaml
