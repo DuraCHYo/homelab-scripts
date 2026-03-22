@@ -46,7 +46,7 @@
 * **IAC:** Ansible для настройки Proxmox и развертывания K3s.
 * **Scripting:** Основной язык автоматизации — **Python**.
 * **GitOps:** ArgoCD
-* **Monitoring:** Victoria Metrics / Victoria Traces / Victoria Logs
+* **Observability:** Victoria Metrics / Victoria Traces / Victoria Logs
 
 ---
 
