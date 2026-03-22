@@ -110,7 +110,7 @@ defaultRules:
   # -- Rule group properties
   groups:
     etcd:
-      create: true
+      create: false
       # -- Common properties for all rules in a group
       rules: {}
       # spec:
@@ -207,13 +207,13 @@ defaultRules:
       create: true
       rules: {}
     kubernetesSystemControllerManager:
-      create: true
+      create: false
       rules: {}
     kubeScheduler:
-      create: true
+      create: false
       rules: {}
     kubernetesSystemScheduler:
-      create: true
+      create: false
       rules: {}
     kubeStateMetrics:
       create: true
@@ -1299,7 +1299,7 @@ kubeApiServer:
 # Component scraping the kube controller manager
 kubeControllerManager:
   # -- Enable kube controller manager metrics scraping
-  enabled: true
+  enabled: false
 
   # -- If your kube controller manager is not deployed as a pod, specify IPs it can be found on
   endpoints: []
@@ -1399,7 +1399,7 @@ coreDns:
 # Component scraping etcd
 kubeEtcd:
   # -- Enabled KubeETCD metrics scraping
-  enabled: true
+  enabled: false
 
   # -- If your etcd is not deployed as a pod, specify IPs it can be found on
   endpoints: []
@@ -1439,7 +1439,7 @@ kubeEtcd:
 # Component scraping kube scheduler
 kubeScheduler:
   # -- Enable KubeScheduler metrics scraping
-  enabled: true
+  enabled: false
 
   # -- If your kube scheduler is not deployed as a pod, specify IPs it can be found on
   endpoints: []
