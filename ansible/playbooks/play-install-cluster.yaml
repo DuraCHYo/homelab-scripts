@@ -108,19 +108,19 @@
     src: '../../certs/{{ item | basename }}'
     dest: '/home/ubuntu/{{ item | basename }}'
   loop:
-    - ../../certs/rootCA-key.pem
-    - ../../certs/rootCA.pem
+    - ../../certs/_wildcard.lab.local-key.pem
+    - ../../certs/_wildcard.lab.local.pem
   when: inventory_hostname in groups['masters']
 
 - name: Read certificate files from remote hosts
   slurp:
-    src: '/home/ubuntu/rootCA.pem'
+    src: '/home/ubuntu/_wildcard.lab.local.pem'
   register: cert_file
   when: inventory_hostname in groups['masters']
 
 - name: Read key files from remote hosts
   slurp:
-    src: '/home/ubuntu/rootCA-key.pem'
+    src: '/home/ubuntu/_wildcard.lab.local-key.pem'
   register: key_file
   when: inventory_hostname in groups['masters']
 
@@ -155,4 +155,14 @@
     path: /tmp/tls-secret.yaml
     state: absent
 
-- import_tasks: deploy-argocd.yaml
+- import_tasks: tasks/deploy-argocd.yaml
+
+- name: Wait until argocd up
+  uri:
+    url: 'https://argocd.lab.local/healthz'
+    validate_certs: 'false'
+  register: result
+  until: 'result.status == 200'
+  retries: 12
+  delay: 10
+  when: inventory_hostname in groups['masters']
