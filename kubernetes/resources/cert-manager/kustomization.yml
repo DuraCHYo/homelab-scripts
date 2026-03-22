@@ -21,4 +21,4 @@ helmCharts:
 
 resources:
   - base/bundle.yaml
-  - base/certificate.yaml
+  - base/certificate-chain.yaml
