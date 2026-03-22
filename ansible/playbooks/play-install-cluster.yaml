@@ -77,6 +77,11 @@
       delegate_to: "{{ groups['masters'][0] }}"
       loop: "{{ groups['workers']}}"
       run_once: true
+    - name: Taint master node
+      shell: "kubectl taint nodes {{ item | replace('.','') }} lab.kubernetes.io/control-plane=true:NoSchedule"
+      delegate_to: "{{ groups['masters'][0] }}"
+      loop: "{{ groups['masters']}}"
+      run_once: true
 
 - name: Ensure k3s-agent is running and enabled
   systemd:
@@ -163,6 +168,6 @@
     validate_certs: 'false'
   register: result
   until: 'result.status == 200'
-  retries: 12
+  retries: 18
   delay: 10
   when: inventory_hostname in groups['masters']

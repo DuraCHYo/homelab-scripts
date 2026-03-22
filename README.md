@@ -55,5 +55,5 @@
 ```bash
 .
 ├── ansible/          # Плейбуки для настройки хостов
-├── k8s/              # Манифесты Kubernetes (apps, monitoring, storage)
+├── kubernetes/              # Манифесты Kubernetes (apps, monitoring, storage)
 └── apps/             # Исходный код тестируемых Python-приложений
