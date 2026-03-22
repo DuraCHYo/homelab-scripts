@@ -1,0 +1,50 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`grafana.lab.local`)
+      priority: 10
+      services:
+        - name: victoria-metrics-grafana
+          port: 80
+  tls: {}
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: vmagent
+  namespace: monitoring
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`vmagent.lab.local`)
+      priority: 10
+      services:
+        - name: vmagent-victoria-metrics-k8s
+          port: 8429
+  tls: {}
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: vmagent
+  namespace: monitoring
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`vms.lab.local`)
+      priority: 10
+      services:
+        - name: vmsingle-victoria-metrics-k8s
+          port: 8428
+  tls: {}

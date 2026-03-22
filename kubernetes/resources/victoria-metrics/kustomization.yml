@@ -11,3 +11,6 @@ helmCharts:
     namespace: monitoring
     valuesFile: values.yaml
     includeCRDs: true
+
+resources:
+  - base/ingress-route.yaml
