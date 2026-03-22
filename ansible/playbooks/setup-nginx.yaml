@@ -20,7 +20,7 @@
     - name: Install to CARoot
       command: mkcert -install
     - name: Generate certs for CA
-      command: mkcert -key-file /etc/pve/local/mkcert.key -cert-file /etc/pve/local/mkcert.pem {{ ansible_facts.hostname }} {{ ansible_facts.hostname }}.lab.local {{ ansible_facts.default_ipv4.address }} localhost 127.0.0.1 "*.{{ ansible_facts.hostname }}" "*.{{ ansible_facts.hostname }}.lab.local"
+      command: mkcert -key-file /etc/pve/local/mkcert.key -cert-file /etc/pve/local/mkcert.pem {{ ansible_facts.hostname }} {{ ansible_facts.default_ipv4.address }} localhost 127.0.0.1 "*.lab.local"
     - name: Get CARoot dir
       command: mkcert --CAROOT
       register: caroot_path

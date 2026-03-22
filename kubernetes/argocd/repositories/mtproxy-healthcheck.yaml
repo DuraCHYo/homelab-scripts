@@ -1,0 +1,11 @@
+data:
+  name: bXRwcm94eS1oZWFsdGhjaGVjaw==
+  project: ZGVmYXVsdA==
+  type: Z2l0
+  url: aHR0cHM6Ly9naXRodWIuY29tL0R1cmFDSFlvL210cHJveHktaGVhbHRoY2hlY2suZ2l0
+kind: Secret
+metadata:
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  name: repo-1364787220
+  namespace: argocd

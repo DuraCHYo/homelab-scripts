@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd 
+spec:
+  project: default
+  source:
+    path: kubernetes/resources/argocd
+    repoURL: 'https://github.com/DuraCHYo/homelab-scripts'
+    targetRevision: master
+  destination:
+    namespace: argocd
+    server: 'https://kubernetes.default.svc'

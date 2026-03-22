@@ -91,3 +91,14 @@
     path: /etc/rancher/k3s/k3s.yaml
     mode: 'o+r'
   when: inventory_hostname in groups['masters']
+
+- name: Change kubeconfig master ip
+  command: "sed -i 's/127.0.0.1/{{ ansible_facts.default_ipv4.address }}/g' /etc/rancher/k3s/k3s.yaml"
+  when: inventory_hostname in groups['masters']
+
+- name: Put kubeconfig to ~/.kube/config
+  ansible.builtin.fetch:
+    src: '/etc/rancher/k3s/k3s.yaml'
+    dest: '/Users/depishev/.kube/config'
+    flat: true
+  when: inventory_hostname in groups['masters']
