@@ -49,3 +49,6 @@ patches:
 images:
   - name: quay.io/argoproj/argocd
     newTag: v3.3.4
+  - name: public.ecr.aws/docker/library/redis
+    newName: docker.io/redis
+    newTag: 8.6.1-alpine3.23
