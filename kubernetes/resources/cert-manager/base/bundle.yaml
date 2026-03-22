@@ -19,8 +19,10 @@ spec:
     additionalFormats:
       jks:
         key: 'ca.jks'
+        password: 'changeit'
       pkcs12:
         key: 'ca.p12'
+        password: 'changeit'
     namespaceSelector:
       matchLabels:
         cert-manager.io/inject-cert: 'true'
