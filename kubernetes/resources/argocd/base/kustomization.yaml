@@ -1,0 +1,4 @@
+resources:
+  - ingress-route.yaml
+  - apps-of-apps.yaml
+  - project.yaml
