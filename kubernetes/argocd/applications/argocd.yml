@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd 
+  name: argocd
 spec:
   project: default
   source:
@@ -11,3 +11,6 @@ spec:
   destination:
     namespace: argocd
     server: 'https://kubernetes.default.svc'
+  syncPolicy:
+    syncOptions:
+      - ServerSideApply=true
