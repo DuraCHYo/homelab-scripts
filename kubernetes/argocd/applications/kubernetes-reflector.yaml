@@ -1,15 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager
+  name: kubernetes-reflector
   namespace: argocd
 spec:
   destination:
-    namespace: cert-manager
+    namespace: kubernetes-reflector
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: kubernetes/resources/cert-manager
+    path: kubernetes/resources/kubernetes-reflector
     repoURL: https://github.com/DuraCHYo/homelab-scripts
     targetRevision: master
   syncPolicy:

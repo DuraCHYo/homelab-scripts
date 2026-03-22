@@ -1,12 +1,12 @@
 apiVersion: trust.cert-manager.io/v1alpha1
 kind: Bundle
 metadata:
-  name: mkcert-certificate
+  name: certificate-chain
 spec:
   sources:
     - useDefaultCAs: true
     - secret:
-        name: 'mkcert-certificate'
+        name: 'certificate-chain'
         key: 'ca.crt'
   target:
     configMap:

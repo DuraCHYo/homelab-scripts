@@ -29,3 +29,5 @@
     - /etc/rancher/k3s
     - /tmp/k3s-install.sh
     - /tmp/k3s
+    - /home/ubuntu/rootCA.pem
+    - /home/ubuntu/rootCA-key.pem

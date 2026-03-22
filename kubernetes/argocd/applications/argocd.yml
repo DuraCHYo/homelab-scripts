@@ -13,6 +13,8 @@ spec:
     namespace: argocd
     server: 'https://kubernetes.default.svc'
   syncPolicy:
+    automated:
+      enabled: true
     syncOptions:
       - ServerSideApply=true
       - CreateNamespace=true
