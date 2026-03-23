@@ -8,7 +8,7 @@ helmCharts:
     repo: https://victoriametrics.github.io/helm-charts/
     version: 0.72.5
     releaseName: victoria-metrics
-    namespace: monitoring
+    namespace: victoria-metrics
     valuesFile: values.yaml
     includeCRDs: true
 
