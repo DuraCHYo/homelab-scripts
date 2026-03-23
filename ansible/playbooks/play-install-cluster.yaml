@@ -175,8 +175,10 @@
 
 - name: Wait until argocd up
   uri:
-    url: 'https://argocd.lab.local/healthz'
+    url: "https://{{ hostvars[groups['masters'][0]].ansible_facts.default_ipv4.address }}/healthz"
     validate_certs: 'false'
+    headers:
+      Host: 'argocd.lab.local'
   register: result
   until: 'result.status == 200'
   retries: 18
