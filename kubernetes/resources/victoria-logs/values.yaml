@@ -408,7 +408,7 @@ dashboards:
   # -- Dashboard annotations
   annotations: {}
   # -- Override default namespace, where to create dashboards
-  namespace: 'victoria-metrics'
+  namespace: 'monitoring'
   grafanaOperator:
     enabled: false
     spec:
