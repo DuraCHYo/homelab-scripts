@@ -1098,6 +1098,7 @@ defaultDatasources:
 # -- Grafana dependency chart configuration. For possible values refer [here](https://github.com/grafana/helm-charts/tree/main/charts/grafana#configuration)
 grafana:
   enabled: true
+  admin-password: 'admin123'
   # all values for grafana helm chart can be specified here
   sidecar:
     datasources:

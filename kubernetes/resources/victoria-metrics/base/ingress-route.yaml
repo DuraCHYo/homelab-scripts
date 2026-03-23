@@ -2,7 +2,6 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: grafana
-  namespace: victoria-metrics
 spec:
   entryPoints:
     - websecure
@@ -19,7 +18,6 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: vmagent
-  namespace: victoria-metrics
 spec:
   entryPoints:
     - websecure
@@ -36,7 +34,6 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: vmsingle
-  namespace: victoria-metrics
 spec:
   entryPoints:
     - websecure
