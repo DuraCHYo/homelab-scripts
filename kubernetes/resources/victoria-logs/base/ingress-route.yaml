@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: victoria-logs
+  namespace: monitoring
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`vlogs.lab.local`)
+      priority: 10
+      services:
+        - name: victoria-logs-server
+          port: 9428
+  tls: {}

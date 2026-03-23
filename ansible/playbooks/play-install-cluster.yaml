@@ -10,7 +10,18 @@
     state: present
     reload: true
 
-- name: Packages installation
+- name: Disable SWAP (k8s requirement)
+  block:
+    - name: Disable SWAP in runtime
+      ansible.builtin.command: swapoff -a
+
+    - name: Disable SWAP in fstab
+      ansible.builtin.replace:
+        path: /etc/fstab
+        regexp: '^([^#].*?\sswap\s+.*)$'
+        replace: '# \1'
+
+- name: proxmox and k3s required packages installation
   block:
     - name: Install qemu-guest-agent package
       apt:
