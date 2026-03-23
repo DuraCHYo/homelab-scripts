@@ -73,7 +73,7 @@ server:
   # -- Overrides the full name of server component
   fullnameOverride: ''
   # -- Data retention period. Possible units character: h(ours), d(ays), w(eeks), y(ears), if no unit character specified - month. The minimum retention period is 24h. See these [docs](https://docs.victoriametrics.com/victorialogs/#retention)
-  retentionPeriod: 1
+  retentionPeriod: 3d
   # -- Data retention max capacity. Default unit is GiB. See these [docs](https://docs.victoriametrics.com/victorialogs/#retention-by-disk-space-usage)
   retentionDiskSpaceUsage: ''
   # -- Data retention max percentile capacity. See these [docs](https://docs.victoriametrics.com/victorialogs/#percentage-based-disk-space-limit)
@@ -377,7 +377,7 @@ server:
     targetPort: http
   vmServiceScrape:
     # -- Enable deployment of VMServiceScrape for server component. This is Victoria Metrics operator object
-    enabled: false
+    enabled: true
     # VMServiceScrape labels
     extraLabels: {}
     # VMServiceScrape annotations
@@ -395,67 +395,6 @@ server:
     metricRelabelings: []
     # -- target port
     targetPort: http
-
-# @ignored
-vector:
-  # -- Enable deployment of vector
-  enabled: false
-  role: Agent
-  dataDir: /vector-data-dir
-  resources: {}
-  args:
-    - -w
-    - --config-dir
-    - /etc/vector/
-  containerPorts:
-    - name: prom-exporter
-      containerPort: 9090
-      protocol: TCP
-  service:
-    enabled: false
-  existingConfigMaps:
-    - vector-vl-config
-  # -- Forces custom configuration creation in a given namespace even if vector.enabled is false
-  customConfigNamespace: ''
-  customConfigName: vector-vl-config
-  customConfig:
-    data_dir: /vector-data-dir
-    api:
-      enabled: false
-      address: 0.0.0.0:8686
-      playground: true
-    sources:
-      k8s:
-        type: kubernetes_logs
-      internal_metrics:
-        type: internal_metrics
-    transforms:
-      parser:
-        type: remap
-        inputs: [k8s]
-        source: |
-          .log = parse_json(.message) ?? .message
-          del(.message)
-    sinks:
-      exporter:
-        type: prometheus_exporter
-        address: 0.0.0.0:9090
-        inputs: [internal_metrics]
-      vlogs:
-        type: elasticsearch
-        inputs: [parser]
-        mode: bulk
-        api_version: v8
-        compression: gzip
-        healthcheck:
-          enabled: false
-        request:
-          headers:
-            VL-Time-Field: timestamp
-            VL-Stream-Fields: stream,kubernetes.pod_name,kubernetes.container_name,kubernetes.pod_namespace
-            VL-Msg-Field: message,msg,_msg,log.msg,log.message,log
-            AccountID: '0'
-            ProjectID: '0'
 
 # -- Add extra specs dynamically to this chart
 extraObjects: []
@@ -477,17 +416,3 @@ dashboards:
         matchLabels:
           dashboards: 'grafana'
       allowCrossNamespaceImport: false
-
-# -- Enterprise license key configuration for VictoriaLogs enterprise.
-# Required only for VictoriaLogs enterprise. Check docs [here](https://docs.victoriametrics.com/victoriametrics/enterprise/#victorialogs-enterprise-features),
-# Request a trial license [here](https://victoriametrics.com/products/enterprise/trial/)
-license:
-  # -- License key
-  key: ''
-
-  # -- Use existing secret with license key
-  secret:
-    # -- Existing secret name
-    name: ''
-    # -- Key in secret with license key
-    key: ''
