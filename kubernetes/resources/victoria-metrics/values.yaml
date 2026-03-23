@@ -1098,7 +1098,7 @@ defaultDatasources:
 # -- Grafana dependency chart configuration. For possible values refer [here](https://github.com/grafana/helm-charts/tree/main/charts/grafana#configuration)
 grafana:
   enabled: true
-  admin-password: 'admin123'
+  adminPassword: 'admin123'
   # all values for grafana helm chart can be specified here
   sidecar:
     datasources:
@@ -1122,9 +1122,9 @@ grafana:
   # Uncomment the block below, if you want to enable VictoriaMetrics Datasource in Grafana:
   # Note that Grafana will need internet access to install the datasource plugin.
   #
-  # plugins:
-  # - victoriametrics-metrics-datasource
-  # - victoriametrics-logs-datasource
+  plugins:
+    - victoriametrics-metrics-datasource
+    - victoriametrics-logs-datasource
 
   ingress:
     enabled: false
