@@ -1,0 +1,10 @@
+[Unit]
+Description=Node-Exporter
+After=syslog.target
+After=network.target
+After=nginx.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/node_exporter
+Restart=on-failure

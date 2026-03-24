@@ -4,6 +4,20 @@
     - name: Reload nginx
       include_tasks: ../handlers/reload-nginx.yaml
   tasks:
+    - import_tasks: tasks/install-node-exporter.yaml
+      when: install_node_exporter
+
+    - name: Disable SWAP (k8s requirement)
+      block:
+        - name: Disable SWAP in runtime
+          ansible.builtin.command: swapoff -a
+
+        - name: Disable SWAP in fstab
+          ansible.builtin.replace:
+            path: /etc/fstab
+            regexp: '^([^#].*?\sswap\s+.*)$'
+            replace: '# \1'
+
     - name: Install nginx from apt
       ansible.builtin.apt:
         name: nginx

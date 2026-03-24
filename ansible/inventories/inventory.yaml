@@ -16,6 +16,8 @@ s1server:
   vars:
     ansible_user: root
     ansible_ssh_private_key_file: ~/.ssh/id_rsa
+    node_exporter_version: 1.10.2
+    install_node_exporter: true
   children:
     server:
       hosts:

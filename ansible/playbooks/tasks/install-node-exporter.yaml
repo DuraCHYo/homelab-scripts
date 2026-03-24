@@ -1,0 +1,43 @@
+- name: Check if node_exporter exists
+  ansible.builtin.stat:
+    path: /usr/local/bin/node_exporter
+  register: node_exporter_already_installed
+
+- name: Create tmp dir for archive
+  ansible.builtin.file:
+    path: /tmp/node_exporter
+    state: directory
+    mode: '0755'
+  when: not node_exporter_already_installed.stat.exists
+
+- name: Download and unarchive node-exporter
+  ansible.builtin.unarchive:
+    src: 'https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz'
+    dest: /tmp/node_exporter
+    remote_src: yes
+  when: not node_exporter_already_installed.stat.exists
+
+- name: Copy node_exporter binary to PATH
+  ansible.builtin.copy:
+    src: /tmp/node_exporter/node_exporter-{{ node_exporter_version }}.linux-amd64/node_exporter
+    dest: /usr/local/bin/node_exporter
+    remote_src: yes
+    mode: '0755'
+  when: not node_exporter_already_installed.stat.exists
+
+- name: Create or update systemd.unit for node-exporter
+  ansible.builtin.template:
+    src: ../templates/node-exporter-systemd-unit.service.j2
+    dest: /etc/systemd/system/node-exporter.service
+
+- name: Reload systemd
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+    state: restarted
+    name: node-exporter.service
+
+- name: Delete /tmp/node_exporter dir
+  ansible.builtin.file:
+    path: /tmp/node_exporter
+    state: absent
+  when: not node_exporter_already_installed.stat.exists
