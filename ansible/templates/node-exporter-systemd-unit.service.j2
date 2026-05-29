@@ -8,3 +8,6 @@ After=nginx.service
 Type=simple
 ExecStart=/usr/local/bin/node_exporter
 Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
