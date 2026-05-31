@@ -730,7 +730,7 @@ alertmanager:
     receivers:
       - name: alertmanager-tg-api
         webhook_configs:
-          - url: http://192.168.1.159:8080/api/v1/alertmanager-tg-sender-adapter
+          - url: http://0.0.0.0:8080/api/v1/alertmanager-tg-sender-adapter
     # - name: "slack-monitoring"
     #   slack_configs:
     #     - channel: "#channel"
