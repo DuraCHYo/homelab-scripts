@@ -72,7 +72,7 @@ service:
   port: 6379
   annotations: {}
   # NodePort value (if service.type is NodePort)
-  nodePort: 6666
+  nodePort: 30000
   # ClusterIP value
   clusterIP: ""
   # Class of a load balancer implementation
