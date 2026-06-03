@@ -11,6 +11,3 @@ helmCharts:
     namespace: valkey
     valuesFile: values.yaml
     includeCRDs: true
-
-resources:
-  - base/traefik-tcp-roite.yaml
