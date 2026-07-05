@@ -166,7 +166,7 @@ agent:
   tolerations: []
   affinity: {}
   dockerSocket:
-    enabled: true
+    enabled: false
     path: /var/run/docker.sock
     hostPathType: Socket
   extraVolumes: 
