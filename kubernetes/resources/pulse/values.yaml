@@ -159,8 +159,6 @@ agent:
   podLabels: {}
   podSecurityContext: {}
   securityContext:
-    runAsUser: 0
-    runAsGroup: 0
     privileged: true 
   nodeSelector: {}
   tolerations: []
@@ -196,14 +194,14 @@ agent:
     initialDelaySeconds: 5
     periodSeconds: 10
     timeoutSeconds: 3
-    failureThreshold: 3
+    failureThreshold: 30
   readinessProbe:
     enabled: true
     path: /readyz
     initialDelaySeconds: 5
     periodSeconds: 5
     timeoutSeconds: 3
-    failureThreshold: 3
+    failureThreshold: 30
 
 # Monitoring configuration
 # Note: The ServiceMonitor targets the main HTTP service (7655). Prometheus metrics are
