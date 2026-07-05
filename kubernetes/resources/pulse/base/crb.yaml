@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: pulse-agent-read
+subjects:
+  - kind: ServiceAccount
+    name: pulse-agent
+    namespace: pulse
+roleRef:
+  kind: ClusterRole
+  name: pulse-agent-read
+  apiGroup: rbac.authorization.k8s.io

@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: pulse 
+  namespace: pulse
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`pulse.lab.local`)
+      priority: 10
+      services:
+        - name: pulse
+          port: 7655
+  tls: {}
