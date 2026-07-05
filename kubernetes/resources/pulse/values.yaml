@@ -128,7 +128,7 @@ agent:
     - /usr/local/bin/pulse-agent
   env:
     - name: PULSE_URL
-      value: "http://pulse-server.pulse.svc.cluster.local:7655"
+      value: "http://pulse:7655"
     - name: PULSE_AGENT_ID
       value: "k8s-cluster"
     - name: PULSE_ENABLE_HOST
