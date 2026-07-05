@@ -150,7 +150,7 @@ agent:
     create: true
     name: "pulse-token"
     data:
-      PULSE_TOKEN: "5b9024d10cf8a86165ad30e3b6fe27329e938ba6a47e93533411bc8db1f76b24"
+      PULSE_TOKEN: "8ff4cb6b7460cd9fd3d8f702e5e5ecba6c5925e39707ffc006469744a82b29a7"
     keys: []
   args:
     - --enable-kubernetes
