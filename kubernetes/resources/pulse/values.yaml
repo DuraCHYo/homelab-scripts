@@ -189,14 +189,14 @@ agent:
       readOnly: true
   healthPort: 9191
   livenessProbe:
-    enabled: true
+    enabled: false
     path: /healthz
     initialDelaySeconds: 5
     periodSeconds: 10
     timeoutSeconds: 3
     failureThreshold: 30
   readinessProbe:
-    enabled: true
+    enabled: false
     path: /readyz
     initialDelaySeconds: 5
     periodSeconds: 5
