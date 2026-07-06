@@ -16,3 +16,4 @@ resources:
   - base/crb.yaml
   - base/sa.yaml
   - base/ingress-route.yaml
+  - base/ds.yaml
