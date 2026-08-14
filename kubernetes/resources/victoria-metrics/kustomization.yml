@@ -15,3 +15,5 @@ helmCharts:
 resources:
   - base/ingress-route.yaml
   - base/proxmox-host-node-exporter.yaml
+  - base/windows-host-node-exporter.yaml
+  - base/macbook-host-node-exporter.yaml

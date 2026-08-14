@@ -1,0 +1,8 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMStaticScrape
+metadata:
+  name: macbook-node-exporter
+spec:
+  jobName: macbook-node-exporter
+  targetEndpoints:
+    - targets: ['192.168.1.111:9100']
